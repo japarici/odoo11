@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <center>
+                            <h2>RESUMEN FORMA DE COBRO</h2>
+                        </center>
+                        <h3>Cobros por Cheque/Efectivo</h3>
+                        <br/>
+                        <h3>
+                            <span t-field="doc.name"/>
+                        </h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Factura</th>
+                                    <th>Forma de cobro</th>
+                                    <th>Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="inv_cash" t-value="0"/>
+                                <t t-foreach="docs" t-as="doc">
+                                    <td><span t-field="doc.partner_id"/></td>
+                                    <td><span t-field="doc.sequence_number_next_prefix"/></td>
+                                    <td><span t-field="doc.payment_term_id"/></td>
+                                    <td><span t-field="doc.amount_total"/></td>
+                                    <t t-if="doc.payment_term_id=='30 Dias'">
+                                        <t t-set="inv_cash" t-value="inv_cash + doc.amount_total"/>
+                                    </t>
+                <!--
+                                    <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                                        <td><span t-field="line.price_subtotal"/></td>
+                                    </tr>
+                -->
+                                </t>
+                            </tbody>
+                        </table>
+                        <!-- Report footer content -->
+                        <div class="row">
+                            <div class="col-3">
+                                Total cobros Cheque/Efectivo: <t t-esc="inv_cash" />
+                            </div>
+                            <div class="col-2" /><div class="col-2" /><div class="col-3" /><div class="col-2" />
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                Total cobros por Banco: <t t-esc="sum([x.amount_total for x in docs]) - inv_cash" />
+                            </div>
+                            <div class="col-2" /><div class="col-2" /><div class="col-3" /><div class="col-2" />
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                TOTAL FACTURACIÓN: <t t-esc="sum([x.amount_total for x in docs])" />
+                            </div>
+                            <div class="col-2" /><div class="col-2" /><div class="col-3" /><div class="col-2" />
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

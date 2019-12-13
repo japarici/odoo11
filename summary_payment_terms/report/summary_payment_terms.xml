@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="payment_terms">
+            <t t-call="web.html_container">
+               <t t-call="web.external_layout">
+                    <div class="oe_structure"/>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Factura</th>
+                                        <th>Forma de cobro</th>
+                                        <th>Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    <t t-foreach="docs" t-as="doc">
+                                    <tr t-foreach="doc.invoice_line_ids" t-as="line">
+                                        <td><span t-field="doc.partner_id"/></td>
+                                        <td><span t-field="doc.sequence_number_next_prefix"/></td>
+                                        <td><span t-field="doc.payment_term_id"/></td>
+                                        <td><span t-field="line.price_subtotal"/></td>
+                                    </tr>
+                    </t>
+                                </tbody>
+                            </table>
+                    <div class="oe_structure"/>
+               </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+<!--
+report_userlabel
+La plantilla del informe 'Resumen por Forma de Cobro' tiene errores, por favor contacte a su administrator.
+
+No puede separarse el archivo para guardarse como adjunto porque la plantilla del reporte no contiene los atributos 'data-oe-model' y 'data-oe-id' en el div con el nombre de clase 'article'.
+-->

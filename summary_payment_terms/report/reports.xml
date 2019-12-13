@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="summary_payment_terms"
+            model="account.invoice"
+            string="Resumen por Forma de Cobro"
+            report_type="qweb-pdf"
+            name="summary_payment_terms.payment_terms"
+            file="summary_payment_terms.payment_terms"
+            attachment_use="False"
+            attachment="(object.state in ('open','paid')) and
+                ('INV'+(object.number or '').replace('/','')+'.pdf')"
+        />
+    </data>
+</odoo>
