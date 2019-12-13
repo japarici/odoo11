@@ -9,8 +9,7 @@
             name="summary_payment_terms.payment_terms"
             file="summary_payment_terms.payment_terms"
             attachment_use="False"
-            attachment="(object.state in ('open','paid')) and
-                ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            attachment=""
         />
     </data>
 </odoo>
